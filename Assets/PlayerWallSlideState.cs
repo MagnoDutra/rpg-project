@@ -20,7 +20,13 @@ public class PlayerWallSlideState : PlayerState
 
     public override void Update()
     {
-        base.Update();       
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stateMachine.ChangeState(player.wallJump);
+            return;
+        }
 
         if(yInput < 0)
             rb.velocity = new Vector2(0, rb.velocity.y);
