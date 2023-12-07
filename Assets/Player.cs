@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool isBusy {  get; private set; }
+
+    [Header("Attack details")]
+    public Vector2[] attackMovement;
+
     [Header("Movement info")]
     public float moveSpeed = 8f;
     public float jumpForce = 12f;
@@ -90,19 +95,41 @@ public class Player : MonoBehaviour
     {
         stateMachine.currentState.Update();
 
-        CheckForDashInput();
+        CheckForDashInput();        
+    }
+
+    public IEnumerator BusyFor(float _seconds)
+    {
+        isBusy = true;
+
+        yield return new WaitForSeconds(_seconds);
+
+        isBusy = false;
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+
+    #region Velocity
+    public void ZeroVelocity() => rb.velocity = new Vector2(0, 0);
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
         rb.velocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
     }
+    #endregion
 
+    #region Collision
     public bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayerMask);
     public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, groundLayerMask);
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+    }
+    #endregion
+
+    #region Flip
     public void Flip()
     {
         facingDir *= -1;
@@ -117,10 +144,5 @@ public class Player : MonoBehaviour
         else if(_x < 0 && facingRight)
             Flip();
     }
-    
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
-    }
+    #endregion
 }
