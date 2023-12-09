@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
+    public EntityFX fX { get; private set; }
     #endregion
 
     [Header("Collision info")]
@@ -30,6 +31,7 @@ public class Entity : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        fX = GetComponent<EntityFX>();
     }
 
     protected virtual void Update()
@@ -40,6 +42,7 @@ public class Entity : MonoBehaviour
     public virtual void Damage()
     {
         Debug.Log(gameObject.name + " was damaged");
+        fX.StartCoroutine("FlashFX");
     }
 
     #region Velocity
