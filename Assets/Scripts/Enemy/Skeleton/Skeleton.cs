@@ -32,14 +32,9 @@ public class Skeleton : Enemy
     protected override void Update()
     {
         base.Update();
-
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            stateMachine.ChangeState(stunState);
-        }
     }
 
-    protected override bool CanBeStunned()
+    public override bool CanBeStunned()
     {
         if (base.CanBeStunned())
         {
