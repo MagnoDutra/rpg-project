@@ -6,6 +6,7 @@ public class SkeletonGroundState : EnemyState
 {
     protected Skeleton enemy;
 
+    protected Transform player;
     public SkeletonGroundState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Skeleton enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         this.enemy = enemy;
@@ -14,6 +15,8 @@ public class SkeletonGroundState : EnemyState
     public override void Enter()
     {
         base.Enter();
+
+        player = GameObject.Find("Player").transform;
     }
 
     public override void Exit()
@@ -25,7 +28,7 @@ public class SkeletonGroundState : EnemyState
     {
         base.Update();
 
-        if (enemy.isPlayerDetected())
+        if (enemy.isPlayerDetected() || Vector2.Distance(enemy.transform.position, player.position) < 2)
             stateMachine.ChangeState(enemy.battleState);
     }
 }
