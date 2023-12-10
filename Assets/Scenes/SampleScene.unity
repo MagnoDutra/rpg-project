@@ -522,7 +522,6 @@ MonoBehaviour:
   counterAttackDuration: 0.2
   moveSpeed: 12
   jumpForce: 12
-  dashCooldown: 0
   dashSpeed: 25
   dashDuration: 0.2
 --- !u!4 &283094213
@@ -4648,6 +4647,7 @@ GameObject:
   - component: {fileID: 1063917991}
   - component: {fileID: 1063917990}
   - component: {fileID: 1063917989}
+  - component: {fileID: 1063917992}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -4680,7 +4680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ebca3010d3ece49977487d0d4bf8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dash: {fileID: 0}
 --- !u!4 &1063917991
 Transform:
   m_ObjectHideFlags: 0
@@ -4696,6 +4695,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1063917992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063917988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfbe46f64ae1e8348897e0ae60c908eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  clonePrefab: {fileID: 4468885853649104524, guid: c6166d28b319492439f00cbd50a6d122, type: 3}
 --- !u!1 &1260205302
 GameObject:
   m_ObjectHideFlags: 0
