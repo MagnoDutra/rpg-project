@@ -36,6 +36,7 @@ public class Player : Entity
     #endregion
 
     public SkillManager skill { get; private set; }
+    public GameObject sword { get; private set; }
 
     protected override void Awake()
     {
@@ -87,6 +88,16 @@ public class Player : Entity
         stateMachine.currentState.Update();
 
         CheckForDashInput();        
+    }
+
+    public void AssignNewSword(GameObject _newSword)
+    {
+        sword = _newSword;
+    }
+
+    public void ClearSword()
+    {
+        Destroy(sword);
     }
 
     public IEnumerator BusyFor(float _seconds)
