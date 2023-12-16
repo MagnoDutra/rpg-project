@@ -33,7 +33,7 @@ public class PlayerCatchSwordState : PlayerState
     {
         base.Exit();
 
-        player.StartCoroutine("BusyFor", 1f);
+        player.StartCoroutine("BusyFor", .2f);
     }
 
     public override void Update()
