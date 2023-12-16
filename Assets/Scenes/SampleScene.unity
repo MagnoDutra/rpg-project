@@ -522,6 +522,7 @@ MonoBehaviour:
   counterAttackDuration: 0.2
   moveSpeed: 12
   jumpForce: 12
+  swordReturnImpact: 5
   dashSpeed: 25
   dashDuration: 0.2
 --- !u!4 &283094213
