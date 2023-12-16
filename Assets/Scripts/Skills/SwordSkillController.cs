@@ -20,6 +20,9 @@ public class SwordSkillController : MonoBehaviour
     private List<Transform> enemyTarget;
     private int targetIndex;
 
+    [Header("Pierce info")]
+    [SerializeField] private float pierceAmount;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -34,7 +37,8 @@ public class SwordSkillController : MonoBehaviour
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
 
-        anim.SetBool("Rotation", true);
+        if(pierceAmount <= 0)
+            anim.SetBool("Rotation", true);
     }
 
     public void SetupBounce(bool _isBouncing, int _amountOfBounces)
@@ -43,6 +47,11 @@ public class SwordSkillController : MonoBehaviour
         amountOfBounce = _amountOfBounces;
 
         enemyTarget = new List<Transform>();
+    }
+
+    public void SetupPierce(int _pierceAmount)
+    {
+        pierceAmount = _pierceAmount;
     }
 
     public void ReturnSword()
@@ -98,6 +107,8 @@ public class SwordSkillController : MonoBehaviour
         if (isReturning)
             return;
 
+        collision.GetComponent<Enemy>()?.Damage();
+
         if (collision.GetComponent<Enemy>() != null)
         {
             if (isBouncing && enemyTarget.Count <= 0)
@@ -119,6 +130,12 @@ public class SwordSkillController : MonoBehaviour
 
     private void StuckInto(Collider2D collision)
     {
+        if(pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
+        {
+            Debug.Log("pierce amount: " + pierceAmount);
+            pierceAmount--;
+            return;
+        }
 
         canRotate = false;
         cd.enabled = false;
